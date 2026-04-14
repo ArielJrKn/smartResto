@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-#[Fillable(['name', 'email', 'password', 'adresse', 'ville' , 'telephone', 'type', 'fidelity_point', 'canalDeDiffusion', 'id_role', 'id_etablissement', 'notes', 'birthDate', 'placeBirth', 'dateApply', 'salary', 'tauxSalary', 'iban', 'contrat', 'photo'])]
+#[Fillable(['name', 'email', 'password', 'adresse', 'ville' , 'telephone', 'type', 'fidelity_point', 'canalDeDiffusion', 'id_role', 'id_etablissement', 'notes', 'birthDate', 'placeBirth', 'dateApply', 'salary', 'tauxSalary', 'iban', 'contrat', 'photo', 'DAuthExpires', 'DAuth'])]
 
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable implements MustVerifyEmail
@@ -28,9 +28,26 @@ class User extends Authenticatable implements MustVerifyEmail
         return [
             'birthDate' => 'date',
             'dateApply' => 'date',
+            'DAuthExpires' => 'datetime',
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function generateDAuthCode():void{
+        $this->update([
+            'DAuth' => rand(100000, 999999),
+            'DAuthExpires' => Carbon::now()->addMinutes(10),
+
+        ]);
+    }
+
+    public function resetDAuthCode():void{
+        $this->update([
+            'DAuth' => null,
+            'DAuthExpires' => null,
+
+        ]);
     }
 
     public function role(){
