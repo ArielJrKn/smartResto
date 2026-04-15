@@ -76,6 +76,7 @@ new class extends Component{
             ]);
 
             $this->reset();
+            $this->roles = Role::all();
 
             session()->flash('success', "Utilisateur ". ' ' . $this->nom . ' ' ." est ajouté");
 
@@ -289,10 +290,10 @@ new class extends Component{
                     setTimeout(() => {
                         document.body.removeChild(notification);
                     }, 300);
-                }, 3000);
+                }, 5000);
             }
             @if(session('success'))
-                showNotification('{{session('success')}}', 'success');
+                showNotification({{ json_encode(session('success')) }}, 'success');
             @endif
 
         });

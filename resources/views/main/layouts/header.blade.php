@@ -41,15 +41,23 @@
 									        <h5>2</h5>
 									    </span>
 							    </div>
+
+							    <form action="{{route('logout')}}" method="post">
+							    	 @csrf
 							    @auth
-							    <div class="bg-white/10 text-gray-400 rounded-full w-full py-1 px-2 flex items-center focus:outline-none" id="userMenuButton">
+							    <button type="submit">
+							    								    <div class="bg-white/10 text-gray-400 rounded-full w-full py-1 px-2 flex items-center focus:outline-none" id="userMenuButton">
 
 							        <span class="hidden md:block mr-3 text-sm font-medium text-gray-800 dark:text-white">{{Auth::user()->name}}</span>
 							        <img class="h-8 w-8 rounded-full object-cover"
 							            src="images/resto.png"
 							            alt="Photo de profil">
 							    </div>
+							    </button>
+
 							    @endauth
+							    </form>
+
 							</div>
 
 							<!-- <div class="lg:hidden md:hidden sm:hidden p-2 flex items-center gap-2">
