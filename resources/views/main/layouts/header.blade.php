@@ -22,12 +22,6 @@
     </style>
 </head>
 	<body>
-		@if(session('success'))
-        	<div class="w-full text-sm bg-green-500 flex items-center justify-center p-2 ">{{session('success')}}</div>
-    	@endif
-    	@if(session('error'))
-        	<div class="w-full text-sm bg-red-500 flex items-center justify-center p-2 ">{{session('error')}}</div>
-    	@endif
 		<div class="flex h-screen bg-[#102C26] overflow-hidden">
 			<div class="absolute top-0 w-full z-50 bg-gradient-to-b from-black to-transparent">
 				<header class="relative px-3 py-2 z-50">

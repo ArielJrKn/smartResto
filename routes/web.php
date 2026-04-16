@@ -5,6 +5,7 @@ use App\Mail\DAuthMail;
 use App\Jobs\WarningConnectionMailJob;
 use App\Mail\WarningConnectionMail;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -60,6 +61,12 @@ Route::controller(MainController::class)->middleware(['auth', 'verified'])->grou
     Route::get('/produits', 'produits')->name('produits');
     Route::get('/showEmployes/{user}', 'showemployes')->name('showemployes');
 });
+
+Route::controller(ProductController::class)->middleware(['auth', 'verified'])->group(function(){
+    Route::post('/addProduct', 'store')->name('addProduct');
+});
+
+
 // Route::get('/dashboard', function () {
 //     return view('main.dashboard');
 // })name('dashboard');

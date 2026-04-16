@@ -26,7 +26,7 @@
                 }, 5000);
             }
             @if(session('success'))
-                showNotification({{ json_encode(session('success')) }}, 'success');
+                showNotification('{{session('success')}}', 'success');
             @endif
 
         });

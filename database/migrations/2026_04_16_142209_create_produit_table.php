@@ -11,8 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('produit', function (Blueprint $table) {
+        Schema::create('products', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('description');
+            $table->enum('type', ['Entrée', 'Plat', 'Dessert', 'Boisson']);
+            $table->string('cover');
+            $table->decimal('price');
+            $table->integer('time')->nullable();
+            $table->boolean('disponible')->default(true);
             $table->timestamps();
         });
     }
