@@ -64,7 +64,7 @@ class AuthenticatedSessionController extends Controller
         }else{
             $user->resetDAuthCode();
             Auth::login($user);
-            return redirect()->route('employes');
+            return redirect()->route('dashboard');
         }
     }
     public function destroy(Request $request): RedirectResponse

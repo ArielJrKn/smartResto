@@ -31,7 +31,7 @@
     <div class="flex min-h-screen">
         <!-- Côté Gauche - Section Promotionnelle -->
         <div class="hidden lg:flex lg:w-1/2 relative overflow-hidden">
-            <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('storage/images/resto.png')"></div>
+            <div class="absolute inset-0 bg-cover bg-center" style="background-image: url({{asset('storage/images/resto.png')}})"></div>
             <div class="absolute inset-0 bg-black bg-opacity-50"></div>
             
             <div class="relative z-10 flex flex-col justify-between p-12 text-white w-full">
@@ -105,7 +105,7 @@
                                 <input type="checkbox" name="remember" class="custom-checkbox w-4 h-4 border-2 border-gray-300 rounded">
                                 <span class="ml-2 text-sm text-gray-600">Se souvenir de moi</span>
                             </label>
-                            <a href="#" class="text-sm text-[#102C26] hover:underline">Mot de passe oublié ?</a>
+                            <a href="{{ route('password.request') }}" class="text-sm text-[#102C26] hover:underline">Mot de passe oublié ?</a>
                         </div>
                         
                         <button type="submit" class="w-full bg-[#102C26] text-white py-3 px-4 !rounded-button font-medium rounded-lg transition-colors duration-200 whitespace-nowrap">

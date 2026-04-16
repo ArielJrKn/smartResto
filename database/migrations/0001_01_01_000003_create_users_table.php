@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('adresse')->nullable();
             $table->string('ville')->nullable();
-            $table->string('telephone');
+            $table->string('telephone')->nullable();
             $table->enum('type',['particulier', 'entreprise', 'staff'])->default('staff');
             $table->integer('fidelity_point')->nullable();
             $table->string('canalDeDiffusion')->nullable();

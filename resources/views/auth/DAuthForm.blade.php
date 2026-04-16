@@ -19,7 +19,7 @@
     <div class="flex min-h-screen">
         <!-- Côté Gauche - Section Promotionnelle -->
         <div class="hidden lg:flex lg:w-1/2 relative overflow-hidden">
-            <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('{{asset(storage/images/resto.png)}}')"></div>
+            <div class="absolute inset-0 bg-cover bg-center" style="background-image: url({{asset('storage/images/resto.png')}})"></div>
             <div class="absolute inset-0 bg-black bg-opacity-50"></div>
             
             <div class="relative z-10 flex flex-col justify-between p-12 text-white w-full">

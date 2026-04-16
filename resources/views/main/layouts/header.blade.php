@@ -22,6 +22,12 @@
     </style>
 </head>
 	<body>
+		@if(session('success'))
+        	<div class="w-full text-sm bg-green-500 flex items-center justify-center p-2 ">{{session('success')}}</div>
+    	@endif
+    	@if(session('error'))
+        	<div class="w-full text-sm bg-red-500 flex items-center justify-center p-2 ">{{session('error')}}</div>
+    	@endif
 		<div class="flex h-screen bg-[#102C26] overflow-hidden">
 			<div class="absolute top-0 w-full z-50 bg-gradient-to-b from-black to-transparent">
 				<header class="relative px-3 py-2 z-50">
@@ -73,7 +79,7 @@
 			</div>
 
 	        <!-- Sidebar -->
-	        <div class="w-64 pt-10 bg-white/10 shadow-lg flex flex-col hidden lg:block">
+	        <div class="w-64 pt-10 flex flex-col hidden lg:block">
 	            <nav class="flex-1 p-4">
 	                <ul class="space-y-2">
 	                    <li><a href="#" class="flex items-center p-3 text-gray-700 dark:text-gray-300 hover:bg-white/30 rounded-lg bg-white/10 text-white">
@@ -84,6 +90,10 @@
 	                        <div class="w-5 h-5 flex items-center justify-center mr-3"><i class="ri-group-line"></i></div>
 	                        Mes Employés
 	                    </a></li>
+	                    <li><a href="{{route('produits')}}" class="flex items-center p-3 text-gray-700 dark:text-gray-300 hover:bg-white/30 rounded-lg">
+	                        <div class="w-5 h-5 flex items-center justify-center mr-3"><i class="ri-shopping-cart-line"></i></div>
+	                        produits
+	                    </a></li>	                    
 	                    <li><a href="commandes.html" class="flex items-center p-3 text-gray-700 dark:text-gray-300 hover:bg-white/30 rounded-lg">
 	                        <div class="w-5 h-5 flex items-center justify-center mr-3"><i class="ri-shopping-cart-line"></i></div>
 	                        Commandes

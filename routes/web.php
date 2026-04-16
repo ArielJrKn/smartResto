@@ -20,6 +20,7 @@ Route::get('/auth/google/callback', function () {
         
         [
             'name' => $googleUser->getName(),
+            // 'telephone' => $googleUser->getPhone(),
             'password' => bcrypt(uniqid()), // Mot de passe aléatoire
             'google_id' => $googleUser->getId(),
             'avatar' => $googleUser->getAvatar(),
@@ -33,12 +34,12 @@ Route::get('/auth/google/callback', function () {
     if ($user->wasRecentlyCreated) {
         return view('auth.afterGoogle');
     }
-        Mail::to($user->email)->send(new WarningConnectionMail($user));
+    Mail::to($user->email)->send(new WarningConnectionMail($user));
 
     // WarningConnectionMailJob::dispatch($user);
 
 
-    return route('dashboard');
+    return redirect()->route('employes');
 
 
     })->name('auth.google.callback');
@@ -56,6 +57,7 @@ Route::get('/', function () {
 Route::controller(MainController::class)->middleware(['auth', 'verified'])->group(function(){
     Route::get('/dashboard', 'dashboard')->name('dashboard');
     Route::get('/employes', 'employes')->name('employes');
+    Route::get('/produits', 'produits')->name('produits');
     Route::get('/showEmployes/{user}', 'showemployes')->name('showemployes');
 });
 // Route::get('/dashboard', function () {
