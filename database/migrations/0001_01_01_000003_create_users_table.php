@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('adresse')->nullable();
             $table->string('ville')->nullable();
-            $table->string('telephone');
+            $table->string('telephone')->nullable();
             $table->enum('type',['particulier', 'entreprise', 'staff'])->default('staff');
             $table->integer('fidelity_point')->nullable();
             $table->string('canalDeDiffusion')->nullable();
@@ -32,10 +32,12 @@ return new class extends Migration
             $table->string('photo')->nullable();
             $table->unsignedBigInteger('id_role')->nullable();
             $table->foreign('id_role')->references('id')->on('roles')->onDelete('cascade');
-            $table->enum('contrat',['CDI - Temps plein', 'CDI - Temps partiel', 'CDD' 'Stage', 'Freelance'])->nullable();
+            $table->enum('contrat',['CDI - Temps plein', 'CDI - Temps partiel', 'CDD', 'Stage', 'Freelance'])->nullable();
             $table->unsignedBigInteger('id_etablissement')->nullable();
             $table->foreign('id_etablissement')->references('id')->on('etablissements')->onDelete('cascade');
             $table->timestamp('email_verified_at')->nullable();
+            $table->string('DAuth')->nullable();
+            $table->timestamp('DAuthExpires')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();

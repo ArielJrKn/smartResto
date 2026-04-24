@@ -31,7 +31,7 @@
     <div class="flex min-h-screen">
         <!-- Côté Gauche - Section Promotionnelle -->
         <div class="hidden lg:flex lg:w-1/2 relative overflow-hidden">
-            <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('storage/images/resto.png')"></div>
+            <div class="absolute inset-0 bg-cover bg-center" style="background-image: url({{asset('storage/images/resto.png')}})"></div>
             <div class="absolute inset-0 bg-black bg-opacity-50"></div>
             
             <div class="relative z-10 flex flex-col justify-between p-12 text-white w-full">
@@ -80,6 +80,9 @@
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Adresse e-mail</label>
                             <input type="email" name="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg auth-input transition-colors duration-200" placeholder="votre@email.com" required="">
+                            @error('email')
+                            <p class="text-red-500">{{$message}}</p>
+                            @enderror
                         </div>
                         
                         <div>
@@ -92,6 +95,9 @@
                                     </div>
                                 </button>
                             </div>
+                            @error('password')
+                            <p class="text-red-500">{{$message}}</p>
+                            @enderror
                         </div>
                         
                         <div class="flex items-center justify-between">
@@ -99,7 +105,7 @@
                                 <input type="checkbox" name="remember" class="custom-checkbox w-4 h-4 border-2 border-gray-300 rounded">
                                 <span class="ml-2 text-sm text-gray-600">Se souvenir de moi</span>
                             </label>
-                            <a href="#" class="text-sm text-[#102C26] hover:underline">Mot de passe oublié ?</a>
+                            <a href="{{ route('password.request') }}" class="text-sm text-[#102C26] hover:underline">Mot de passe oublié ?</a>
                         </div>
                         
                         <button type="submit" class="w-full bg-[#102C26] text-white py-3 px-4 !rounded-button font-medium rounded-lg transition-colors duration-200 whitespace-nowrap">
@@ -264,14 +270,16 @@
                 </div>
                 
                 <!-- Boutons de Connexion Sociale -->
-                <div class=" hide space-y-3">
-                    <button class="w-full flex items-center justify-center px-4 py-3 border border-gray-300 rounded-lg social-btn hover:bg-gray-50 transition-all duration-200">
-                        <div class="w-5 h-5 flex items-center justify-center mr-3">
-                            <i class="ri-google-fill text-red-500"></i>
-                        </div>
-                        <span class="font-medium text-gray-700">Continuer avec Google</span>
-                    </button>
-                </div>
+                <a href="{{route('google.login')}}">
+                    <div class=" hide space-y-3">
+                        <button class="w-full flex items-center justify-center px-4 py-3 border border-gray-300 rounded-lg social-btn hover:bg-gray-50 transition-all duration-200">
+                            <div class="w-5 h-5 flex items-center justify-center mr-3">
+                                <i class="ri-google-fill text-red-500"></i>
+                            </div>
+                            <span class="font-medium text-gray-700">Continuer avec Google</span>
+                        </button>
+                    </div>
+                </a>
             </div>
         </div>
     </div>

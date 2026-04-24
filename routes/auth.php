@@ -15,6 +15,9 @@ Route::middleware('guest')->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create'])
         ->name('register');
 
+        Route::post('registerAfterGoogle', [RegisteredUserController::class, 'registerAfterGoogle'])
+        ->name('registerAfterGoogle');
+
     Route::post('register', [RegisteredUserController::class, 'store']);
 
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
@@ -57,3 +60,6 @@ Route::middleware('auth')->group(function () {
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
         ->name('logout');
 });
+
+    Route::post('verify2FA', [AuthenticatedSessionController::class, 'verify2FA'])
+        ->name('verify2FA');

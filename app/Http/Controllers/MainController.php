@@ -14,7 +14,12 @@ class MainController extends Controller
 
     public function employes(){
         $users = User::with('role')->get();
+
         return view('main.employes', compact('users'));
+    }
+
+    public function produits(){
+        return view('main.produits');
     }
 
     public function showemployes($user){

@@ -44,7 +44,7 @@
                         <div class="flex justify-between items-start">
                             <div>
                                 <h3 class="font-bold text-lg text-white">{{$user->name}}</h3>
-                                <p class="text-secondary text-sm font-medium">{{$user->role->libelle}}</p>
+                                <p class="text-secondary text-sm font-medium">{{$user->role?->libelle}}</p>
                             </div>
                             <button class="text-gray-400 hover:text-gray-600 transition">
                                 <i class="fas fa-ellipsis-v"></i>

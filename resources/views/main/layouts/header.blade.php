@@ -41,15 +41,23 @@
 									        <h5>2</h5>
 									    </span>
 							    </div>
+
+							    <form action="{{route('logout')}}" method="post">
+							    	 @csrf
 							    @auth
-							    <div class="bg-white/10 text-gray-400 rounded-full w-full py-1 px-2 flex items-center focus:outline-none" id="userMenuButton">
+							    <button type="submit">
+							    								    <div class="bg-white/10 text-gray-400 rounded-full w-full py-1 px-2 flex items-center focus:outline-none" id="userMenuButton">
 
 							        <span class="hidden md:block mr-3 text-sm font-medium text-gray-800 dark:text-white">{{Auth::user()->name}}</span>
 							        <img class="h-8 w-8 rounded-full object-cover"
 							            src="images/resto.png"
 							            alt="Photo de profil">
 							    </div>
+							    </button>
+
 							    @endauth
+							    </form>
+
 							</div>
 
 							<!-- <div class="lg:hidden md:hidden sm:hidden p-2 flex items-center gap-2">
@@ -65,7 +73,7 @@
 			</div>
 
 	        <!-- Sidebar -->
-	        <div class="w-64 pt-10 bg-white/10 shadow-lg flex flex-col hidden lg:block">
+	        <div class="w-64 pt-10 flex flex-col hidden lg:block">
 	            <nav class="flex-1 p-4">
 	                <ul class="space-y-2">
 	                    <li><a href="#" class="flex items-center p-3 text-gray-700 dark:text-gray-300 hover:bg-white/30 rounded-lg bg-white/10 text-white">
@@ -76,6 +84,10 @@
 	                        <div class="w-5 h-5 flex items-center justify-center mr-3"><i class="ri-group-line"></i></div>
 	                        Mes Employés
 	                    </a></li>
+	                    <li><a href="{{route('produits')}}" class="flex items-center p-3 text-gray-700 dark:text-gray-300 hover:bg-white/30 rounded-lg">
+	                        <div class="w-5 h-5 flex items-center justify-center mr-3"><i class="ri-shopping-cart-line"></i></div>
+	                        produits
+	                    </a></li>	                    
 	                    <li><a href="commandes.html" class="flex items-center p-3 text-gray-700 dark:text-gray-300 hover:bg-white/30 rounded-lg">
 	                        <div class="w-5 h-5 flex items-center justify-center mr-3"><i class="ri-shopping-cart-line"></i></div>
 	                        Commandes

@@ -1,5 +1,6 @@
 <?php
-
+use App\Jobs\SendUsersInformations;
+use App\Mail\SendUsersInformationsMail;
 use Livewire\Component;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Role;
@@ -75,7 +76,17 @@ new class extends Component{
                 'notes' => $this->notes,
             ]);
 
+                if ($this->sendMail) {
+                    Mail::to($user->email)->send(new SendUsersInformationsMail($user, $this->password));
+                     SendUsersInformations::dispatch($user, $this->password);
+                }
+
             $this->reset();
+            $this->roles = Role::all();
+
+            
+
+            
 
             session()->flash('success', "Utilisateur ". ' ' . $this->nom . ' ' ." est ajouté");
 
@@ -247,6 +258,9 @@ new class extends Component{
                                       class="w-full bg-white/10 text-gray-400 outline-none rounded-lg px-4 py-2 focus:ring-2 focus:ring-secondary"></textarea>
                         </div>
                     </form>
+                    @if(session('success'))
+                        <div class="w-full text-sm bg-green-500 flex items-center justify-center p-2 ">{{session('success')}}</div>
+                    @endif
                 </div>
                 
                 <!-- Pied de page avec boutons -->
@@ -255,45 +269,25 @@ new class extends Component{
                             class="px-5 py-2 bg-white/10 hover:bg-white/20 text-gray-400 rounded-lg transition flex items-center gap-2">
                         Fermer
                     </button>
-                    <button type="submit" form="formAjoutEmploye" 
+                    <button wire:click="store" type="submit" form="formAjoutEmploye" 
                             class="px-5 py-2 bg-primary hover:bg-orange-600 text-white rounded-lg transition flex items-center gap-2 shadow-md">
-                        <i class="ri-save-line"></i> Enregistrer l'employé
+
+                            <span wire:loading.remove wire:target="store">
+                                <i class="ri-save-line"></i> Enregistrer l'employé
+                            </span>
+
+                            <div wire:loading wire:target="store" class="flex items-center justify-center gap-2">
+                                    <svg class="animate-spin h-5 w-5 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+                                    </svg>
+                                <p>Patientez...</p>
+                            </div>
+                        
                     </button>
                 </div>
             </div>
         </div>
 </div>
 
-    <script id="notifications">
-        
-        document.addEventListener('DOMContentLoaded', function() {
-
-            function showNotification(message, type = 'success') {
-                const notification = document.createElement('div');
-                notification.className = `fixed top-4 right-4 p-4 rounded-lg shadow-lg z-50 transition-all duration-300 transform translate-x-full ${
-                    type === 'success' ? 'bg-green-500/30 backdrop-blur-md text-white' :
-                    type === 'warning' ? 'bg-orange-500/30 backdrop-blur-md text-white' :
-                    type === 'error' ? 'bg-red-500/30 backdrop-blur-md text-white' :
-                    'bg-blue-500/30 backdrop-blur-md text-white'
-                }`;
-                notification.textContent = message;
-                
-                document.body.appendChild(notification);
-                
-                setTimeout(() => {
-                    notification.classList.remove('translate-x-full');
-                }, 100);
-                
-                setTimeout(() => {
-                    notification.classList.add('translate-x-full');
-                    setTimeout(() => {
-                        document.body.removeChild(notification);
-                    }, 300);
-                }, 3000);
-            }
-            @if(session('success'))
-                showNotification('{{session('success')}}', 'success');
-            @endif
-
-        });
-    </script>
+@include('components.notification')

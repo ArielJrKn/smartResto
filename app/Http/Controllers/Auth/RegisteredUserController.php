@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
-
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Role;
@@ -79,5 +78,30 @@ class RegisteredUserController extends Controller
 
         // Auth::login($user);
 
+    }
+
+    public function registerAfterGoogle(Request $request){
+        $request->validate([
+            'typeEtat' => 'required|string|max:255',
+            'nameEtat' => 'required|string|max:255',
+            'emailEtat' => 'required|string|max:255|unique:etablissements,email',
+            'telEtat' => 'required|string|max:255|unique:etablissements,telephone',
+            'adresseEtat' => 'required|string|max:255',
+        ]);
+
+        $etat = Etablissement::create([
+            'nom' => $request->name,
+            'type' => $request->typeEtat,
+            'telephone' => $request->telEtat,
+            'email' => $request->emailEtat,
+            'adresse' => $request->adresseEtat,
+        ]);
+
+        Auth::user()->update([
+            'id_role' => Role::where('id',1)->first('id')->id,
+            'id_etablissement' => $etat->id,
+        ]);
+
+        return redirect()->route('dashboard');
     }
 }

@@ -47,57 +47,24 @@
             <div class="w-full max-w-md">
                 <!-- En-tête Mobile -->
                 <div class="lg text-center mb-8">
-                    <h1 class="text-3xl text-[#102C26] mb-2">Réinitialisation du mot de passe</h1>
+                    <h1 class="text-3xl text-[#102C26] mb-2">Authentification à deux facteurs</h1>
+                    <p class="text-gray-600">Confirmez votre identité. <br>Nous vous avons envoyer un code à 6 chiffre dans votre boite mail.</p>
                 </div>
                 
                 <!-- Formulaire de Connexion -->
                 <div id="loginForm" class="form-transition">
-                    <!-- Session Status -->
-                    <form class="space-y-6" method="POST" action="{{ route('password.store') }}">
+                    <form class="space-y-6" method="POST" action="{{ route('verify2FA') }}">
                         @csrf
-                        <input type="hidden" name="token" value="{{ $request->route('token') }}">
-
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
-                            <input type="email" :value="old('email', $request->email)" name="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg auth-input transition-colors duration-200" placeholder="exemple@gmail.com" required="">
-                            @error('email')
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Code à 6 chiffres</label>
+                            <input type="number" name="code" class="w-full px-4 py-3 border border-gray-300 rounded-lg auth-input transition-colors duration-200" placeholder="XXXXXX" required="">
+                            @error('code')
                             <p class="text-red-500">{{$message}}</p>
                             @enderror
                         </div>
-
-                        <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Nouveau mot de passe</label>
-                                <div class="relative">
-                                    <input type="password" autocomplete="new-password" id="registerPassword" class="w-full px-4 py-3 border border-gray-300 rounded-lg auth-input transition-colors duration-200 pr-12" placeholder="••••••••" name="password" required="">
-                                    <button type="button" id="toggleRegisterPassword" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700">
-                                        <div class="w-5 h-5 flex items-center justify-center">
-                                            <i class="ri-eye-line"></i>
-                                        </div>
-                                    </button>
-                                </div>
-                                @error('password')
-                                <p class="text-red-500">{{$message}}</p>
-                                @enderror
-                            </div>
-                            
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Confirmer le mot de passe</label>
-                                <div class="relative">
-                                    <input type="password" autocomplete="new-password" id="confirmPassword" class="w-full px-4 py-3 border border-gray-300 rounded-lg auth-input transition-colors duration-200 pr-12" placeholder="••••••••" name="password_confirmation" required="">
-                                    <button type="button" id="toggleConfirmPassword" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700">
-                                        <div class="w-5 h-5 flex items-center justify-center">
-                                            <i class="ri-eye-line"></i>
-                                        </div>
-                                    </button>
-                                </div>
-                                @error('password_confirmation')
-                                <p class="text-red-500">{{$message}}</p>
-                                @enderror
-                            </div>
-
                         
                         <button type="submit" class="w-full bg-[#102C26] text-white py-3 px-4 !rounded-button font-medium rounded-lg transition-colors duration-200 whitespace-nowrap">
-                            Changer mon mot de passe
+                            Confirmer
                         </button>
                         
                     </form>
