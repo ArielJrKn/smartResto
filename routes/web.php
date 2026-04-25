@@ -9,6 +9,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\TableController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CommandeController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -62,6 +63,7 @@ Route::controller(MainController::class)->middleware(['auth', 'verified'])->grou
     Route::get('/produits', 'produits')->name('produits');
     Route::get('/setting', 'setting')->name('setting');
     Route::get('/tables', 'tables')->name('table');
+    Route::get('/commandes', 'commandes')->name('commandes');
     Route::get('/addtablesForm', 'addtables')->name('addtable');
     Route::get('/detailproduit/{product}', 'detailproduit')->name('detailproduit');
     Route::get('/detailboisson/{boisson}', 'detailboisson')->name('detailboisson');
@@ -74,7 +76,14 @@ Route::controller(TableController::class)->middleware(['auth', 'verified'])->gro
     Route::get('/editTable/{table}', 'edit')->name('editTable');
     Route::patch('/updateTable/{table}', 'update')->name('updateTable');
     Route::patch('/resetTable/{table}', 'reset')->name('reset');
+});
 
+Route::controller(TableController::class)->group(function(){
+    Route::get('/showTable/{table}', 'show')->name('showTable');
+});
+
+Route::controller(CommandeController::class)->group(function(){
+    Route::post('/commande', 'store')->name('storeCommande');
 });
 
 

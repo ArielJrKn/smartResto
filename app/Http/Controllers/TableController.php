@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 use App\Models\Table;
 use App\Models\User;
+use App\Models\Product;
+use App\Models\Boisson;
 use Illuminate\Http\Request;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class TableController extends Controller
 {
@@ -39,6 +42,7 @@ class TableController extends Controller
                 'notes' => 'nullable|string|max:255',
             ]);
 
+
             $table = Table::create([
                 'number' => $request->number,
                 'libelle' => $request->libelle,
@@ -48,6 +52,25 @@ class TableController extends Controller
                 'notes' => $request->notes,
                 'zone' => $request->zone,
             ]);
+
+            $url = route('showTable', $table->id);
+
+            // 3️⃣ Créer le dossier s'il n'existe pas
+                $dossier = public_path('qrcodes');
+                if (!file_exists($dossier)) {
+                    mkdir($dossier, 0755, true);
+                }
+
+                // 4️⃣ Générer et sauvegarder l'image QR code
+                $nomFichier = 'table_' . $table->id . '.svg';
+                $cheminComplet = $dossier . '/' . $nomFichier;
+
+                QrCode::format('svg')
+                      ->size(300)       // taille en pixels
+                      ->generate($url, $cheminComplet);
+
+                 // 5️⃣ Enregistrer le chemin du QR code dans la base
+        $table->update(['qr_code' => 'qrcodes/' . $nomFichier]);
 
             return redirect()->route('table')->with('success', "Table ajouter avec success");
         } catch (\Illuminate\Validation\ValidationException $e) {
@@ -59,9 +82,13 @@ class TableController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Table $table)
     {
-        //
+        $entrees = Product::where('type', 'Entrée')->get();
+        $plats = Product::where('type', 'Plat')->get();
+        $desserts = Product::where('type', 'Dessert')->get();
+        $boissons = Boisson::All();
+        return view('main.table.showTable', compact('table', 'entrees', 'plats', 'desserts', 'boissons'));
     }
 
     /**
@@ -99,6 +126,19 @@ class TableController extends Controller
                 'notes' => $request->notes,
                 'zone' => $request->zone,
             ]);
+            $url = route('showTable', $table->id);
+
+
+            // 4️⃣ Générer et sauvegarder l'image QR code
+                $nomFichier = 'table_' . $table->id . '.svg';
+                $cheminComplet = $dossier . '/' . $nomFichier;
+
+                QrCode::format('svg')
+                      ->size(300)       // taille en pixels
+                      ->generate($url, $cheminComplet);
+
+                 // 5️⃣ Enregistrer le chemin du QR code dans la base
+            $table->update(['qr_code' => 'qrcodes/' . $nomFichier]);
 
             return redirect()->route('table')->with('success', "Table modifier avec success");
         } catch (\Illuminate\Validation\ValidationException $e) {
@@ -106,6 +146,8 @@ class TableController extends Controller
              return back()->with('error', "Erreur enregistrement");
         }
     }
+
+
 
     /**
      * Remove the specified resource from storage.

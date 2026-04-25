@@ -16,6 +16,10 @@ class MainController extends Controller
     public function dashboard(){
         return view('main.dashboard');
     }
+
+    public function commandes(){
+        return view('main.commande.commandes');
+    }
     
     public function tables(){
         $tables = Table::All();

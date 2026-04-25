@@ -88,7 +88,7 @@
 	                        <div class="w-5 h-5 flex items-center justify-center mr-3"><i class="ri-shopping-cart-line"></i></div>
 	                        produits
 	                    </a></li>	                    
-	                    <li><a href="commandes.html" class="flex items-center p-3 text-gray-700 dark:text-gray-300 hover:bg-white/30 rounded-lg">
+	                    <li><a href="{{route('commandes')}}" class="flex items-center p-3 text-gray-700 dark:text-gray-300 hover:bg-white/30 rounded-lg">
 	                        <div class="w-5 h-5 flex items-center justify-center mr-3"><i class="ri-shopping-cart-line"></i></div>
 	                        Commandes
 	                    </a></li>

@@ -51,7 +51,7 @@
 				                            <div class="w-20 h-20 rounded-lg bg-yellow-500 flex items-center justify-center text-white font-bold cursor-pointer hover:scale-110 transition-transform">
 				                                {{$table->number}}
 				                            </div>
-				                            {{$table->name}}
+				                            <a href="{{route('showTable', $table)}}">voir</a>
 				                        </div>
 				                        @endforeach
 				                    </div>
